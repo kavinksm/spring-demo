@@ -30,4 +30,4 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      grype titanregistrydemoapp.azurecr.io/demoapp:latest -o $(System.DefaultWorkingDirectory)/json
+      grype titanregistrydemoapp.azurecr.io/demoapp:latest -o json
