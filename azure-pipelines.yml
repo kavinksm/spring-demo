@@ -24,7 +24,10 @@ steps:
 #       latest
 #       $(Build.BuildId)
 
+
 - task: Bash@3
   displayName: "Docker image scan"
   inputs:
-    script: grype titanregistrydemoapp.azurecr.io/demoapp:latest -o $(System.DefaultWorkingDirectory)/json
+    targetType: 'inline'
+    script: |
+      grype titanregistrydemoapp.azurecr.io/demoapp:latest -o $(System.DefaultWorkingDirectory)/json
