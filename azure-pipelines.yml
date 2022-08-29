@@ -7,27 +7,30 @@ pool:
 steps:
 - checkout: self
 
-# - task: CmdLine@2
-#   displayName: "Maven Build"
-#   inputs:
-#     script: './mvnw clean compile package'
-#     workingDirectory: $(Build.SourcesDirectory)
+- task: CmdLine@2
+  displayName: "Maven Build"
+  inputs:
+    script: './mvnw clean compile package'
+    workingDirectory: $(Build.SourcesDirectory)
 
-# - task: Docker@2
-#   displayName: "Docker build and upload to acr"
-#   inputs:
-#     containerRegistry: 'ado-acr'
-#     repository: 'demoapp'
-#     command: 'buildAndPush'
-#     Dockerfile: '**/Dockerfile'
-#     tags: |
-#       latest
-#       $(Build.BuildId)
+- task: Docker@2
+  displayName: "Docker build and upload to acr"
+  inputs:
+    containerRegistry: 'ado-acr'
+    repository: 'demoapp'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      latest
+      $(Build.BuildId)
 
 
 - task: Bash@3
   displayName: "Docker image scan"
   inputs:
     targetType: 'inline'
+    workingDirectory: $(Build.SourcesDirectory)
     script: |
-      grype titanregistrydemoapp.azurecr.io/demoapp:latest -o json
+      grype titanregistrydemoapp.azurecr.io/demoapp:latest -o table
+
+
