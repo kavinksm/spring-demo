@@ -2,17 +2,19 @@ trigger:
 - main
 
 pool:
-  name: kkagent
+  name: kk
 
 steps:
 - checkout: self
 
 - task: CmdLine@2
+  displayName: "Maven Build"
   inputs:
     script: 'mvnw.cmd clean compile package'
     workingDirectory: $(Build.SourcesDirectory)
 
 - task: Docker@2
+  displayName: "Docker build and upload to acr"
   inputs:
     containerRegistry: 'ado-acr'
     repository: 'demoapp'
