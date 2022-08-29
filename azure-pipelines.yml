@@ -1,0 +1,23 @@
+trigger:
+- main
+
+pool:
+  name: kkagent
+
+steps:
+- checkout: self
+
+- task: CmdLine@2
+  inputs:
+    script: 'mvnw.cmd clean compile package'
+    workingDirectory: $(Build.SourcesDirectory)
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'ado-acr'
+    repository: 'demoapp'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      latest
+      $(Build.BuildId)
