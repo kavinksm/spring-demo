@@ -27,4 +27,4 @@ steps:
 - task: Bash@3
   displayName: "Docker image scan"
   inputs:
-    script: grype demoapp:latest -o json
+    script: grype titanregistrydemoapp.azurecr.io/demoapp:latest -o json
