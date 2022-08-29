@@ -10,7 +10,7 @@ steps:
 - task: CmdLine@2
   displayName: "Maven Build"
   inputs:
-    script: 'mvnw.cmd clean compile package'
+    script: 'mvnw clean compile package'
     workingDirectory: $(Build.SourcesDirectory)
 
 - task: Docker@2
