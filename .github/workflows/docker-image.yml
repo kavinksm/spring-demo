@@ -11,8 +11,12 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v3
+    
+    - name: maven build
+      run:  mvnw clean compile package
+
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag springdemo:$(date +%s)
